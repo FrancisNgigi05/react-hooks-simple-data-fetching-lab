@@ -1,28 +1,22 @@
-import React, {useState, useEffect} from "react";
-import { data } from "../mocks/data";
+import React, { useState, useEffect } from 'react';
 
+const API_url = "https://dog.ceo/api/breeds/image/random";
 function App() {
-    // The useState will be used to set the image
     const [image, setImage] = useState(null);
 
     useEffect(() => {
-        fetch("https://dog.ceo/api/breeds/image/random")
-            // coverting the API response to json format
-            .then(response => response.json())
-            // The image fetched will be set in the setImage funciton
-            .then((data) => setImage(data.message))
-    }, []);
+        fetch(API_url)
+            .then((r) => r.json())
+            .then((data) => setImage(data.message));
+    }, [])
 
-    // show Loading text if imgae is not there
-    if (image === null)
-        return (<p>Loading ...</p>);
+    if (!image) return (<p>Loading...</p>)
 
     return (
         <div>
-            <img src={image} alt="dog image" />
+            <img src={image} alt="A random Dog" />
         </div>
     )
-
 }
 
-export default App;
+export default App
